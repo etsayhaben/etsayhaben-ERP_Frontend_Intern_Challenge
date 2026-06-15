@@ -53,7 +53,7 @@ You should see:
 Push the branch to GitHub:
 
 ```bash
-git push -u origin feature/human_resource
+git push -u origin feature/yourname/human_resource
 ```
 
 ---
