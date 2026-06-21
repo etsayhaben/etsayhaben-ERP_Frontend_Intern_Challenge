@@ -8,13 +8,17 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchEmployees, deleteEmployee as apiDeleteEmployee } from '../api/hrApi'
 import { useEmployeeFilterStore } from '../store/employeeFilterStore'
 import { useHrStatsStore } from '@/shared/store/hrStatsStore'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 import { countOnLeave } from '../services/hrService'
 
 export function useEmployees() {
   const queryClient = useQueryClient()
 
-  // LOCAL STATE — only this hook/component cares about the search text
+  // LOCAL STATE — only this hook/component cares about the search text.
+  // `search` updates instantly (drives the input); `debouncedSearch`
+  // lags ~300ms behind and is what we actually filter on.
   const [search, setSearch] = useState('')
+  const debouncedSearch = useDebouncedValue(search)
 
   // GLOBAL STATE — department filter is shared with /dashboard
   const selectedDepartment = useEmployeeFilterStore((s) => s.selectedDepartment)
