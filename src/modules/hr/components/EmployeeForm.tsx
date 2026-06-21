@@ -130,6 +130,7 @@ export function EmployeeForm({ mode, initialData }: EmployeeFormProps) {
             onChange={(e) => handleChange('hiredAt', e.target.value)}
             className="border rounded px-3 py-2 w-full bg-white text-gray-900"
           />
+          {errors.hiredAt && <p className="text-red-600 text-sm">{errors.hiredAt}</p>}
         </div>
       </div>
 

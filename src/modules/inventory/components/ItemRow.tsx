@@ -31,7 +31,7 @@ export function ItemRow({ item, onDelete }: ItemRowProps) {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <td className="p-2" onClick={(e) => e.stopPropagation()}>
-          <input type="checkbox" checked={isSelected} onChange={() => toggleId(item.id)} />
+          <input type="checkbox" aria-label={`Select ${item.name}`} checked={isSelected} onChange={() => toggleId(item.id)} />
         </td>
         <td className="p-2">{item.name}</td>
         <td className="p-2">{item.category}</td>

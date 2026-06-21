@@ -13,7 +13,9 @@ export function validateEmployee(values: EmployeeFormValues): Record<string, str
   if (!values.email.trim()) errors.email = 'Email is required'
   else if (!EMAIL_PATTERN.test(values.email)) errors.email = 'Email is invalid'
   if (!values.role.trim()) errors.role = 'Role is required'
-  if (values.salary < 0) errors.salary = 'Salary cannot be negative'
+  if (!values.hiredAt) errors.hiredAt = 'Hired date is required'
+  if (!Number.isFinite(values.salary)) errors.salary = 'Salary must be a number'
+  else if (values.salary < 0) errors.salary = 'Salary cannot be negative'
   return errors
 }
 
