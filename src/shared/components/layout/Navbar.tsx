@@ -1,15 +1,17 @@
 'use client'
 
 // ── GLOBAL STATE ─────────────────────────────────────────────────
-// Reads a value WRITTEN by the inventory module's hook (useInventory).
-// The Navbar has no idea HOW lowStockCount was calculated — it just
-// displays whatever is currently in the store.
+// Reads values WRITTEN by the inventory and HR module hooks.
+// The Navbar has no idea HOW these counts were calculated — it just
+// displays whatever is currently in the stores.
 
 import Link from 'next/link'
 import { useInventoryStatsStore } from '@/shared/store/inventoryStatsStore'
+import { useHrStatsStore } from '@/shared/store/hrStatsStore'
 
 export function Navbar() {
     const lowStockCount = useInventoryStatsStore((s) => s.lowStockCount)
+    const onLeaveCount = useHrStatsStore((s) => s.onLeaveCount)
 
     return (
         <nav className="flex gap-6 p-4 border-b">
@@ -19,6 +21,14 @@ export function Navbar() {
                 {lowStockCount > 0 && (
                     <span className="ml-2 bg-red-600 text-white text-xs rounded-full px-2 py-0.5">
                         {lowStockCount}
+                    </span>
+                )}
+            </Link>
+            <Link href="/hr" className="relative">
+                HR
+                {onLeaveCount > 0 && (
+                    <span className="ml-2 bg-yellow-500 text-white text-xs rounded-full px-2 py-0.5">
+                        {onLeaveCount} on leave
                     </span>
                 )}
             </Link>
