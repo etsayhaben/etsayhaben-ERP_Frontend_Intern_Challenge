@@ -10,4 +10,4 @@ export interface Employee {
 }
 
 // Used by the form — id/onLeave/updatedAt are set by the "backend", not the user.
-export type EmployeeFormValues = Omit<Employee, 'id' | 'onLeave' | 'updatedAt'>
+export type EmployeeFormValues = Omit<Employee, 'id' | 'updatedAt'>

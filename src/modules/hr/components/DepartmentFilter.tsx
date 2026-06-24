@@ -1,25 +1,21 @@
 'use client'
 
-// ── GLOBAL STATE ─────────────────────────────────────────────────
-// Reads and writes the Zustand store DIRECTLY. No props needed —
-// any component anywhere can use this store the same way.
-
 import { useEmployeeFilterStore } from '../stores/employeeFilterStore'
 
-const DEPARTMENTS = ['Sales', 'Marketing', 'Finance', 'Engineering', 'HR', 'Operations']
+const Department = ['Sales', 'Marketing', 'Engineering', 'HR', 'Finance']   
 
 export function DepartmentFilter() {
-  const filter = useEmployeeFilterStore((s) => s.filter)
-  const setFilter = useEmployeeFilterStore((s) => s.setFilter)
-
-  return (
+ const selectedDepartment = useEmployeeFilterStore((s) => s.selectedDepartment)
+ const setDepartment = useEmployeeFilterStore((s) => s.setDepartment)
+  
+ return (
     <select
-      value={filter}
-      onChange={(e) => setFilter(e.target.value)}
       className="border rounded px-3 py-2"
+      value={selectedDepartment ?? ''}
+      onChange={(e) => setDepartment(e.target.value)}
     >
       <option value="">All departments</option>
-      {DEPARTMENTS.map((dept) => (
+      {Department.map((dept) => (
         <option key={dept} value={dept}>{dept}</option>
       ))}
     </select>

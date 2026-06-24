@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 
-interface EmployeeFilterStore {
-    filter: string
-    setFilter: (filter: string) => void
+interface EmployeeFilterState {
+    selectedDepartment: string
+    setDepartment: (department: string) => void
 }
 
-export const useEmployeeFilterStore = create<EmployeeFilterStore>((set) => ({
-    filter: '',
-    setFilter: (filter) => set({ filter }),
-}))
+export const useEmployeeFilterStore = create<EmployeeFilterState>((set) => {
+    return {
+        selectedDepartment: '',
+        setDepartment: (department) => set({ selectedDepartment: department }),
+    }
+})
