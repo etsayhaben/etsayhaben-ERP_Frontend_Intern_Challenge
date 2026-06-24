@@ -9,7 +9,7 @@ interface ItemDetailPanelProps {
 
 export function ItemDetailPanel({ item }: ItemDetailPanelProps) {
   return (
-    <div className="bg-gray-50 p-4 text-sm">
+    <div className="bg-gray-50 text-gray-900 p-4 text-sm">
       <p><strong>SKU:</strong> {item.sku}</p>
       <p><strong>Reorder level:</strong> {item.reorderLevel} {item.unit}</p>
       <p><strong>Status:</strong> {item.status}</p>

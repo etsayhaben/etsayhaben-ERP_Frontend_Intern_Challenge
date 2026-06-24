@@ -8,13 +8,17 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchItems, deleteItem as apiDeleteItem } from '../api/inventoryApi'
 import { useInventoryFilterStore } from '../store/inventoryFilterStore'
 import { useInventoryStatsStore } from '@/shared/store/inventoryStatsStore'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 import { countLowStock } from '../services/inventoryService'
 
 export function useInventory() {
   const queryClient = useQueryClient()
 
-  // LOCAL STATE — only this hook/component cares about the search text
+  // LOCAL STATE — only this hook/component cares about the search text.
+  // `search` updates instantly (drives the input); `debouncedSearch`
+  // lags ~300ms behind and is what we actually filter on.
   const [search, setSearch] = useState('')
+  const debouncedSearch = useDebouncedValue(search)
 
   // GLOBAL STATE — category filter is shared with /dashboard
   const selectedCategory = useInventoryFilterStore((s) => s.selectedCategory)
@@ -34,7 +38,7 @@ export function useInventory() {
 
   // Combine local search + global category filter on the fetched data
   const filtered = items
-    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+    .filter((item) => item.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
     .filter((item) => !selectedCategory || item.category === selectedCategory)
 
   async function removeItem(id: string) {
