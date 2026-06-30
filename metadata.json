@@ -1,0 +1,6 @@
+{
+  "name": "EthioERP (EthioHisab)",
+  "description": "Enterprise ERP accounting system with dual Ethiopian and Gregorian calendar fiscal year CRUD capabilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
