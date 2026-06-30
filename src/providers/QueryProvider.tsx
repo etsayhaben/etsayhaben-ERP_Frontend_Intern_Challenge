@@ -1,12 +1,16 @@
-'use client'
 
-// Sets up React Query for the whole app. Wraps everything in
-// app/layout.tsx so any hook can call useQuery / useMutation.
+'use client';
 
-import { useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
 
-export function QueryProvider({ children }: { children: React.ReactNode }) {
-  const [client] = useState(() => new QueryClient())
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>
+export default function QueryProvider({ children }: { children: React.ReactNode }) {
+  // ✅ Create client once to avoid re-renders
+  const [queryClient] = useState(() => new QueryClient());
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
 }
